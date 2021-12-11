@@ -17,16 +17,28 @@ def calc_monthly_productivity(yearly_prod):
   return (yearly_prod ** (1/11))
 
 
-def friendly_columns(columns):
+def friendly_string(columns):
   return columns.str.replace(' ','_').str.lower()
 
 
-def gsheet_to_df(df, transpose = False):
+def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False):
   if(transpose):
     df = df.transpose()
+  
+  #FIX COLUMN_NAMES
   df.columns = df.iloc[0,:]
-  df.columns = friendly_columns(df.columns)
+  df.columns = friendly_string(df.columns)
   df = df.iloc[1:,:]
+  
+  #FIX_NUMERIC_COLUMNS
+  for i in range(len(number_columns)):
+    df[number_columns[i]] = df[number_columns[i]].apply(numerify)
+
+  #FIX_STRING_COLUMNS
+  for i in range(len(string_columns)):
+    df[string_columns[i]] = df[string_columns[i]].apply(friendly_string)
+
+  
   df.reset_index(inplace=True)
   return df
 
@@ -68,6 +80,7 @@ def update_transactions_per_hc(df, grouping_column = 'team', date_column = 'mont
   temp_df['updated_hc'] = temp_df[t] / temp_df[utph]
   temp_df['original_hc'] = temp_df[t] / temp_df[tph]
   return temp_df
+
 
 def import_gsheets(gsheets, names):
   d = {}
