@@ -36,11 +36,11 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False
   
   #FIX_NUMERIC_COLUMNS
   for i in range(len(number_columns)):
-    temp_df[number_columns[i]] = temp_df[number_columns[i]].apply(numerify)
+    temp_df.loc[:,number_columns[i]] = temp_df.loc[:,number_columns[i]].apply(numerify)
 
   #FIX_STRING_COLUMNS
   for i in range(len(string_columns)):
-    temp_df[string_columns[i]] = temp_df[string_columns[i]].apply(friendly_string)
+    temp_df.loc[:,string_columns[i]] = temp_df.loc[:,string_columns[i]].apply(friendly_string)
 
   
   temp_df.reset_index(inplace=True)
