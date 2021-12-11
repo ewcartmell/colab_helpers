@@ -21,26 +21,27 @@ def friendly_string(columns):
   return columns.str.replace(' ','_').str.lower()
 
 
-def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False):
+def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False):  
+  temp_df = df
   if(transpose):
-    df = df.transpose()
+    temp_df = temp_df.transpose()
   
   #FIX COLUMN_NAMES
-  df.columns = df.iloc[0,:]
-  df.columns = friendly_string(df.columns)
-  df = df.iloc[1:,:]
+  temp_df.columns = temp_df.iloc[0,:]
+  temp_df.columns = friendly_string(temp_df.columns)
+  temp_df = temp_df.iloc[1:,:]
   
   #FIX_NUMERIC_COLUMNS
   for i in range(len(number_columns)):
-    df[number_columns[i]] = df[number_columns[i]].apply(numerify)
+    temp_df[number_columns[i]] = temp_df[number_columns[i]].apply(numerify)
 
   #FIX_STRING_COLUMNS
   for i in range(len(string_columns)):
-    df[string_columns[i]] = df[string_columns[i]].apply(friendly_string)
+    temp_df[string_columns[i]] = temp_df[string_columns[i]].apply(friendly_string)
 
   
-  df.reset_index(inplace=True)
-  return df
+  temp_df.reset_index(inplace=True)
+  return temp_df
 
 
 def blended_rate(output_df, rates_df, site_keyword = 'site', rate_keyword = 'monthly_rate'):
