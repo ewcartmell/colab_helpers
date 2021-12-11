@@ -73,6 +73,14 @@ def import_gsheets(gsheets, names):
   d = {}
   counter = 0
 
+  from google.colab import auth
+  auth.authenticate_user()
+
+  import gspread
+  from oauth2client.client import GoogleCredentials
+
+  gc = gspread.authorize(GoogleCredentials.get_application_default())
+
   for i in gsheets:
     worksheet = gc.open(i).sheet1
     rows = worksheet.get_all_values()
