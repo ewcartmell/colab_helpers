@@ -20,7 +20,7 @@ def friendly_string(string):
   if(type(string) == str):
     output = string.replace(' ','_').lower()
   else:
-    output = string.str.replacereplace(' ','_').str.lower()
+    output = string.str.replace(' ','_').str.lower()
   return output
 
 
