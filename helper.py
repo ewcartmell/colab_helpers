@@ -18,7 +18,7 @@ def calc_monthly_productivity(yearly_prod):
 
 def friendly_string(string):
   if(type(string) == str):
-    output = string.replace(' ','_').str.lower()
+    output = string.replace(' ','_').lower()
   else:
     output = string.str.replacereplace(' ','_').str.lower()
   return output
