@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 
 def numerify(x):
   if(type(x) == str):
