@@ -68,3 +68,17 @@ def update_transactions_per_hc(df, grouping_column = 'team', date_column = 'mont
   temp_df['updated_hc'] = temp_df[t] / temp_df[utph]
   temp_df['original_hc'] = temp_df[t] / temp_df[tph]
   return temp_df
+
+def import_gsheets(gsheets, names):
+  d = {}
+  counter = 0
+
+  for i in gsheets:
+    worksheet = gc.open(i).sheet1
+    rows = worksheet.get_all_values()
+    d[names[counter]] = pd.DataFrame.from_records(rows)
+    d[names[counter]].columns = d[names[counter]].iloc[0,:]
+    d[names[counter]] = d[names[counter]].iloc[1:,:]
+    counter = counter + 1
+
+  return d
