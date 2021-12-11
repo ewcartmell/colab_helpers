@@ -11,7 +11,6 @@ def numerify(x):
     x = x.round(2)
   return x
 
-
 def calc_monthly_productivity(yearly_prod):
   yearly_prod = numerify(yearly_prod)
   return (yearly_prod ** (1/11))
