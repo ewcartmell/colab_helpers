@@ -17,8 +17,12 @@ def calc_monthly_productivity(yearly_prod):
   return (yearly_prod ** (1/11))
 
 
-def friendly_string(columns):
-  return columns.str.replace(' ','_').str.lower()
+def friendly_string(string):
+  if(type(string) == str):
+    output = string.replace(' ','_').str.lower()
+  else:
+    output = string.str.replacereplace(' ','_').str.lower()
+  return output
 
 
 def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False):  
