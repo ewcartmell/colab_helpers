@@ -24,7 +24,7 @@ def friendly_string(string):
   return output
 
 
-def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False):  
+def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = [], transpose = False):  
   temp_df = df
   if(transpose):
     temp_df = temp_df.transpose()
@@ -41,6 +41,10 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], transpose = False
   #FIX_STRING_COLUMNS
   for i in range(len(string_columns)):
     temp_df.loc[:,string_columns[i]] = temp_df.loc[:,string_columns[i]].apply(friendly_string)
+
+  #FIX_DATE_COLUMNS
+  for i in range(len(date_columns)):
+    temp_df.loc[:,date_columns[i]] = temp_df.loc[:,date_columns[i]].apply(pd.to_datetime)
 
   
   temp_df.reset_index(inplace=True)
