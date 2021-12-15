@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 
 def numerify(x):
   if(type(x) == str):
@@ -75,7 +75,7 @@ def update_transactions_per_hc(df, grouping_column = 'team', date_column = 'mont
   before_cutoff = temp_df.month < cutoff_date
 
   temp_df['one'] = 1
-  temp_df['run_tot'] = temp_df.loc[after_cutoff,:].groupby(grouping_column)['one'].cumsum()
+  temp_df['run_tot'] = temp_df.loc[after_cutoff,:].groupby(grouping_column)['month', 'one'].cumsum()
   temp_df.loc[after_cutoff, cpi] = temp_df.loc[after_cutoff, mpi] ** (temp_df.loc[after_cutoff,'run_tot']-1)
   temp_df.loc[after_cutoff, utph] = temp_df.loc[after_cutoff, tph] * temp_df.loc[after_cutoff, cpi]
   temp_df.loc[before_cutoff, utph] = temp_df.loc[before_cutoff, tph] 
