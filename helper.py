@@ -53,7 +53,9 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = []
     for i in range(len(params[key])):
       temp_df.loc[:,params[key][i]] = temp_df.loc[:,params[key][i]].apply(functions[key])
   
-  temp_df.reset_index(inplace=True)
+  if(fix_columns): 
+    temp_df.reset_index(inplace=True)
+  
   return temp_df
 
 
