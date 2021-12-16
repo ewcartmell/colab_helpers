@@ -24,7 +24,7 @@ def friendly_string(string):
   return output
 
 
-def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = [], transpose = False, fix_columns = True):  
+def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = [], transpose = False, fix_columns = False):  
   temp_df = df.copy()
   if(transpose):
     temp_df = temp_df.transpose()
