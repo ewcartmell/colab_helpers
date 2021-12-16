@@ -34,20 +34,35 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = []
   temp_df.columns = friendly_string(temp_df.columns)
   temp_df = temp_df.iloc[1:,:]
   
+  params = {
+    'numbers': number_columns,
+    'strings': string_columns
+    'dates': date_columns
+  }
+
+  functions = {
+    'numbers': numerify,
+    'strings': friendly_string,
+    'dates': pd.to_datetime
+  }
+
+  for key in params:
+    if(type(params[key]) != list):
+      params[key] = [params[key]]
+    for i in range(len(params[key])):
+      temp_df.loc[:,params[key][i]] = temp_df.loc[:,params[key][i]].apply(functions[key])
+
   #FIX_NUMERIC_COLUMNS
-  numbers = [].append(number_columns)
-  for i in range(len(numbers)):
-    temp_df.loc[:,numbers[i]] = temp_df.loc[:,numbers[i]].apply(numerify)
+  #for i in range(len(numbers)):
+  #  temp_df.loc[:,numbers[i]] = temp_df.loc[:,numbers[i]].apply(numerify)
 
   #FIX_STRING_COLUMNS
-  strings = [].append(string_columns)
-  for i in range(len(strings)):
-    temp_df.loc[:,strings[i]] = temp_df.loc[:,strings[i]].apply(friendly_string)
+  #for i in range(len(strings)):
+  #  temp_df.loc[:,strings[i]] = temp_df.loc[:,strings[i]].apply(friendly_string)
 
   #FIX_DATE_COLUMNS
-  dates = [].append(date_columns)
-  for i in range(len(dates)):
-    temp_df.loc[:,dates[i]] = temp_df.loc[:,dates[i]].apply(pd.to_datetime)
+  #for i in range(len(dates)):
+  #  temp_df.loc[:,dates[i]] = temp_df.loc[:,dates[i]].apply(pd.to_datetime)
 
   
   temp_df.reset_index(inplace=True)
