@@ -24,15 +24,16 @@ def friendly_string(string):
   return output
 
 
-def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = [], transpose = False):  
+def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = [], transpose = False, fix_columns = True):  
   temp_df = df
   if(transpose):
     temp_df = temp_df.transpose()
   
   #FIX COLUMN_NAMES
-  temp_df.columns = temp_df.iloc[0,:]
-  temp_df.columns = friendly_string(temp_df.columns)
-  temp_df = temp_df.iloc[1:,:]
+  if(fix_columns):
+    temp_df.columns = temp_df.iloc[0,:]
+    temp_df.columns = friendly_string(temp_df.columns)
+    temp_df = temp_df.iloc[1:,:]
   
   params = {
     'numbers': number_columns,
