@@ -71,7 +71,7 @@ def blended_rate(output_df, rates_df, site_keyword = 'site', rate_keyword = 'mon
   return output_df
 
 
-def update_transactions_per_hc(df, grouping_column = ['team','site'], date_column = 'month', cutoff_date = '2022-01-01'):
+def update_transactions_per_hc(df, grouping_column = ['team','site','worker_type'], date_column = 'month', cutoff_date = '2022-01-01'):
   temp_df = df
   temp_df.sort_values([grouping_column, date_column])
 
@@ -93,8 +93,8 @@ def update_transactions_per_hc(df, grouping_column = ['team','site'], date_colum
   temp_df.loc[before_cutoff, utph] = temp_df.loc[before_cutoff, tph] 
   
   temp_df[t] = temp_df[s] * temp_df[tps]
-  temp_df['updated_hc'] = temp_df[t] / temp_df[utph]
-  temp_df['original_hc'] = temp_df[t] / temp_df[tph]
+  temp_df['team_month_hc'] = temp_df[t] / temp_df[utph]
+  #temp_df['original_hc'] = temp_df[t] / temp_df[tph]
   return temp_df
 
 
