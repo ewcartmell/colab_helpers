@@ -73,8 +73,8 @@ def blended_rate(output_df, rates_df, site_keyword = 'site', rate_keyword = 'mon
 
 def update_transactions_per_hc(df, grouping_column = ['team','site','worker_type'], date_column = 'month', cutoff_date = '2022-01-01'):
   temp_df = df.copy()
-  grouping_column.append(date_column)
-  temp_df.sort_values(grouping_column)
+  sort_by = grouping_column.append(date_column)
+  temp_df.sort_values(sort_by)
 
   cpi = 'cumulative_productivity_improvement'
   mpi = 'monthly_productivity_improvement'
