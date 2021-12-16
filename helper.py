@@ -36,7 +36,7 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = []
   
   params = {
     'numbers': number_columns,
-    'strings': string_columns
+    'strings': string_columns,
     'dates': date_columns
   }
 
