@@ -52,19 +52,6 @@ def gsheet_to_df(df, number_columns = [], string_columns = [], date_columns = []
       params[key] = [params[key]]
     for i in range(len(params[key])):
       temp_df.loc[:,params[key][i]] = temp_df.loc[:,params[key][i]].apply(functions[key])
-
-  #FIX_NUMERIC_COLUMNS
-  #for i in range(len(numbers)):
-  #  temp_df.loc[:,numbers[i]] = temp_df.loc[:,numbers[i]].apply(numerify)
-
-  #FIX_STRING_COLUMNS
-  #for i in range(len(strings)):
-  #  temp_df.loc[:,strings[i]] = temp_df.loc[:,strings[i]].apply(friendly_string)
-
-  #FIX_DATE_COLUMNS
-  #for i in range(len(dates)):
-  #  temp_df.loc[:,dates[i]] = temp_df.loc[:,dates[i]].apply(pd.to_datetime)
-
   
   temp_df.reset_index(inplace=True)
   return temp_df
