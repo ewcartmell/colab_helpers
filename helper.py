@@ -107,9 +107,10 @@ def import_gsheets(gsheets, names):
   auth.authenticate_user()
 
   import gspread
-  from oauth2client.client import GoogleCredentials
+  from google.auth import default
+  creds, _ = default()
 
-  gc = gspread.authorize(GoogleCredentials.get_application_default())
+  gc = gspread.authorize(creds)
 
   for i in gsheets:
     worksheet = gc.open(i).sheet1
